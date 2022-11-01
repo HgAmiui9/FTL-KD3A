@@ -26,18 +26,6 @@ def np_uniform_sample_next(compact_adj, tree, fanout):
 def np_traverse(
     compact_adj, seed_nodes, fanouts=(1,), sample_fn=np_uniform_sample_next
 ):
-    """Traverse the graph with given seed nodes and fanouts.
-
-    Args:
-        compact_adj (np.ndarray): compact adjacency matrix.
-        seed_nodes (np.ndarray): seed nodes.
-        fanouts (tuple): fanouts.
-        sample_fn (function): sampling function.
-
-    Returns:
-        np.ndarray: traversed nodes.
-    """
-
     if not isinstance(seed_nodes, np.ndarray):
         raise ValueError("Seed must a numpy array.")
 
