@@ -1,0 +1,2 @@
+# python3 ./data/sampleEgonetworks.py --path ego-networks/ --data cora --ego_number 1000 --hop_number 2
+python3 ./data/sampleEgonetworks.py --path ego-networks/ --data citeseer --ego_number 1000 --hop_number 2

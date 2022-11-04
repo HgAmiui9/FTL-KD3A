@@ -38,15 +38,15 @@ def partition_data_random(path, data):
 
 def create_non_uniform_split(args, idxs, client_number, data_type="train", is_loading_cache=True):
     # use fedml already finish function to partition class samples with dirichlet distribution
-    logging.info("-------------------------create non uniform splite-------------------------")
-    N  = len(idxs)
+    logging.info("-------------------------create non uniform split-------------------------")
+    N = len(idxs)
     alpha = args.partition_alpha
     logging.info("idxs = {idxs}, sample_number = {N}}, client_number = {client_number}")
     partition_cache_file_path = args.part_file + "-" + str(client_number) + "-" + str("alpha") + "-" + data_type + ".pkl"
     logging.info("partition_cache_file_path = {partition_cache_file_path}")
 
     if is_loading_cache and os.path.exists(partition_cache_file_path):
-        logging.info("-------------------------loading perset partition----------------------------")
+        logging.info("-------------------------loading preset partition----------------------------")
         pickle_file = open(partition_cache_file_path, "rb")
         idx_batch_per_client = pickle.load(pickle_file)
     else:
@@ -63,7 +63,7 @@ def create_non_uniform_split(args, idxs, client_number, data_type="train", is_lo
     logging.info("-----------------------------saving partition------------------------------")
     logging.info(idx_batch_per_client)
 
-    sample_num_distrubution = [len(idx_batch_per_client[client_id] for client_id in range(client_number))]
+    sample_num_distribution = [len(idx_batch_per_client[client_id] for client_id in range(client_number))]
     logging.info("sample_num_distribution = {sample_num_distribution}")
 
     return sample_num_distrubution

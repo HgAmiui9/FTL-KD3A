@@ -2,6 +2,7 @@ from pickle import NONE
 import fedml
 from fedml import FedMLRunner
 from data.data_loader import *
+from model.sage import SAGE
 
 def load_data(args):
     num_cats, feature_dim = 0, 0
@@ -61,12 +62,10 @@ def load_data(args):
 
     return dataset, num_cats, feature_dim
 
-# def create_model(args, feature_dim, num_cats, output_dim=None):
-#     logging.info("create model model name is {}, output_dim is {}".format(args.model, output_dim))
-#     if args.model == "gcn":
-#         mdoel = GCNNodeCLF(
-#             nfeat=feat_dim, nhid=args.hidden_size, nclass=num_cats,nlayer=args.n_layers, dropout=args.dropout
-#         )
+def create_model(model_name, feature_dim, num_cats):
+    logging.info("create_model. model_name = {model_name}, output_dim = {num_cats}")
+    model = SAGE(in_features=feature_dim, hidden_features=args.hidden_dim, n_class=num_cats, n_layer=args.n_layers, dropout=args.dropout)
+    trainer = FedNodeCLFTrainer(model, args)
 
 if __name__ == "__main__":
     args = fedml.init()
