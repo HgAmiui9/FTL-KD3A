@@ -2,21 +2,15 @@ from pickle import NONE
 import fedml
 from fedml import FedMLRunner
 from data.data_loader import *
+from ego_network_node_classiifcation.trainer.aggregator import FedNodeClfAggregator
+from ego_network_node_classiifcation.trainer.trainer import FedNodeCLFTrainer
 from model.sage import SAGE
 
 def load_data(args):
     num_cats, feature_dim = 0, 0
-    # if args.dataset not in ["CS", "Physics", "cora", "citeseer", "DBLP", "PubMed"]:
-    #     raise Exception("no such dataset")
-    # elif args.dataset in ["CS", "Physics"]:
-    #     args.type_network = "coauthor"
-    # else:
-    #     args.type_network = "citation"
 
     args.dataset = "cora"
     args.type_network = "citation"
-
-    # compact = args.model == "graphsage"
 
     compact = True
 
