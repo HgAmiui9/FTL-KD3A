@@ -2,9 +2,13 @@ from pickle import NONE
 import fedml
 from fedml import FedMLRunner
 from data.data_loader import *
-from ego_network_node_classiifcation.trainer.aggregator import FedNodeClfAggregator
-from ego_network_node_classiifcation.trainer.trainer import FedNodeCLFTrainer
+from trainer.aggregator import FedNodeClfAggregator
+from trainer.trainer import FedNodeCLFTrainer
 from model.sage import SAGE
+import logging
+import faulthandler
+
+faulthandler.enable()
 
 def load_data(args):
     num_cats, feature_dim = 0, 0
@@ -62,14 +66,23 @@ def create_model(model_name, feature_dim, num_cats):
     trainer = FedNodeCLFTrainer(model, args)
 
 if __name__ == "__main__":
+    logging.basicConfig(filename="run.log", encoding="utf-8", level=logging.DEBUG)
     args = fedml.init()
-    
+    logging.info('fedml init ~ ')
+
     device = fedml.device.get_device(args)
     
     dataset, num_cats, feature_dim = load_data(args)
+    logging.info('load data ~ ')
     
     model, trainer = create_model(args, feature_dim, num_cats)
+    logging.info('create_mode')
+
     aggregator = FedNodeClfAggregator(model, args)
+    logging.info('model affregator')
     
     fedml_runner = FedMLRunner(args, device, dataset, model, trainer, aggregator)
+    logging.info('fedml running')
+    
     fedml.runner.run()
+    
